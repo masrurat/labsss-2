@@ -44,6 +44,20 @@ The `the_tate` data-set has 3532 unique artists who worked from \_\_\_ to \_\_\_
 
 ### Exercise 2
 
+```{r}
+the_tate |> dplyr::filter(is.na(year)) |> dplyr::distinct(artist)
+```
+
+```{r}
+the_tate |> dplyr::filter(is.na(year)) |> dplyr::distinct(title)
+```
+
+```{r}
+the_tate |> dplyr::filter(is.na(year))
+
+table(qaz$artist) |> tibble::tibble()
+```
+
 How number of works with missing dates is \_\_.
 
 The number of artists whose works have missing dates is \_\_.
@@ -54,11 +68,34 @@ The missing year data likely to be classified as \_\_\_\_.
 
 ### Exercise 3
 
+```{r}
+the_tate |> dplyr::group_by(artist) |>
+dplyr::mutate(n=n()) |>
+  dplyr::select(artist,n) |> 
+  dplyr::arrange(desc(n)) |>
+  dplyr::distinct() |> 
+  dplyr::ungroup() |> 
+  dplyr::slice(c(1,10))
+```
+
 The artist with the most works in the Tate collection is \_\_\_.
 
 The artist with the tenth-most works in the Tate collection is \_\_\_.
 
 ### Exercise 4
+
+```{r}
+the_tate |> dplyr::group_by(artist) |>
+dplyr::mutate(n=n()) |>
+  dplyr::select(artist,n) |> 
+  dplyr::arrange(desc(n)) |>
+  dplyr::distinct() |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(
+    total=sum(n),
+    pct=n/total
+  )
+```
 
 The artist with the greatest number of works in the Tate collection represent \_\_\_% of the total number of works
 
