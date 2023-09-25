@@ -55,7 +55,7 @@ the_tate |> dplyr::filter(is.na(year)) |> dplyr::distinct(title)
 ```{r}
 the_tate |> dplyr::filter(is.na(year))
 
-table(qaz$artist) |> tibble::tibble()
+#table(qaz$artist) |> tibble::tibble()
 ```
 
 How number of works with missing dates is \_\_.
@@ -70,7 +70,7 @@ The missing year data likely to be classified as \_\_\_\_.
 
 ```{r}
 the_tate |> dplyr::group_by(artist) |>
-dplyr::mutate(n=n()) |>
+dplyr::mutate(n=dplyr::n()) |>
   dplyr::select(artist,n) |> 
   dplyr::arrange(desc(n)) |>
   dplyr::distinct() |> 
